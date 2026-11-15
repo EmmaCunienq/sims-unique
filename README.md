@@ -4,6 +4,12 @@ Dans chaque foyer, vous ne jouez **qu'un seul Sim**. Les autres membres vivent l
 en autonomie : impossible de les sélectionner ou de leur donner des ordres.
 Chaque Sim joué a un **héritier**. Quand il meurt (ou quitte le foyer), on continue avec l'héritier.
 
+> [!WARNING]
+> **Mod en cours de test.** Il n'a pas encore été entièrement testé en jeu et **peut causer
+> des problèmes sur vos sauvegardes**. Faites une copie de votre dossier
+> `Documents\Electronic Arts\Les Sims 4\saves` avant de l'utiliser, et testez-le de
+> préférence sur une partie dont vous pouvez vous passer.
+
 ## Installation
 
 1. `python build.py --install` (ou copier `build/SimsUnique/` dans `Documents/Electronic Arts/Les Sims 4/Mods/`)

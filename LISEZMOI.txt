@@ -5,6 +5,12 @@ Dans chaque foyer, vous ne jouez qu'UN seul Sim. Les autres membres vivent leur 
 en autonomie. Quand votre Sim meurt (ou quand vous le décidez), vous continuez avec
 son héritier : par défaut son enfant le plus âgé, sinon le Sim le plus proche de lui.
 
+/!\ ATTENTION - MOD EN COURS DE TEST /!\
+Ce mod n'a pas encore été entièrement testé en jeu et PEUT CAUSER DES PROBLÈMES
+SUR VOS SAUVEGARDES. Avant de l'utiliser, faites une copie de votre dossier
+  Documents\Electronic Arts\Les Sims 4\saves
+et testez-le de préférence sur une partie dont vous pouvez vous passer.
+
 
 INSTALLATION
 ------------
