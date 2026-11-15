@@ -15,8 +15,10 @@ class InteractionsTest(unittest.TestCase):
         self.mom, self.dad, self.teen, self.kid, self.aunt = fakegame.family(self.w)
         self.core.current_state()
 
+    shift = False  # Maj enfoncée au clic
+
     def ctx(self, actor):
-        return types.SimpleNamespace(sim=Sim(actor))
+        return types.SimpleNamespace(sim=Sim(actor), shift_held=self.shift)
 
     def visible(self, cls, actor, target):
         return bool(cls._test(Sim(target), self.ctx(actor)))
@@ -46,8 +48,12 @@ class InteractionsTest(unittest.TestCase):
             'Sims unique : Voir la succession',
         ])
 
-    def test_menu_on_self_with_testingcheats(self):
+    def test_testingcheats_alone_does_not_show_settings(self):
         self.w.cheats_enabled = True
+        self.assertNotIn('Désactiver pour ce foyer', self.menu(self.mom, self.mom))
+
+    def test_menu_on_self_with_shift_click(self):
+        self.shift = True
         self.assertEqual(self.menu(self.mom, self.mom), [
             'Affichage : Vision du foyer',
             'Affichage : État du foyer',
@@ -73,7 +79,7 @@ class InteractionsTest(unittest.TestCase):
         self.assertEqual(self.menu(self.mom, outsider), [])
 
     def test_menu_with_manual_heir_offers_reset(self):
-        self.w.cheats_enabled = True
+        self.shift = True
         self.core.set_heir_sim(self.aunt)
         self.assertIn('Sims unique : Revenir à l\'héritier par défaut (Ado Test)', self.menu(self.mom, self.mom))
         self.assertIn('Sims unique : Passer la main à Tante Test', self.menu(self.mom, self.mom))
@@ -81,7 +87,7 @@ class InteractionsTest(unittest.TestCase):
     def test_menu_when_disabled(self):
         self.core.disable()
         self.assertEqual(self.menu(self.dad, self.dad), [])
-        self.w.cheats_enabled = True
+        self.shift = True
         self.assertEqual(self.menu(self.dad, self.dad), ['Ne jouer que ce Sim'])
         self.assertEqual(self.menu(self.dad, self.kid), [])
 

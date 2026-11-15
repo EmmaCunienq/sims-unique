@@ -28,7 +28,8 @@ class _SimsUniqueInteraction(ImmediateSuperInteraction):
     """Base : nom en texte brut, test et action délégués aux sous-classes."""
 
     on_self = True  # True : clic sur son propre Sim ; False : clic sur un autre Sim
-    # True : réglage rangé dans le menu « Sims unique », visible seulement avec testingcheats.
+    # True : réglage rangé dans le menu « Sims unique », visible seulement au Maj+clic sur le Sim
+    # (avec ou sans testingcheats).
     in_settings_menu = False
 
     @classmethod
@@ -67,8 +68,8 @@ class _SimsUniqueInteraction(ImmediateSuperInteraction):
                 return TestResult(False, 'Sims unique : cible non Sim')
             if cls.on_self != (actor.sim_id == target_info.sim_id):
                 return TestResult(False, 'Sims unique : mauvaise cible')
-            if cls.in_settings_menu and not core.cheats_enabled():
-                return TestResult(False, 'Sims unique : testingcheats désactivé')
+            if cls.in_settings_menu and not getattr(context, 'shift_held', False):
+                return TestResult(False, 'Sims unique : réglages au Maj+clic')
             if not cls.visible(actor, target_info):
                 return TestResult(False, 'Sims unique : indisponible')
         except Exception:

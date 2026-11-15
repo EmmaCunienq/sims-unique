@@ -28,7 +28,7 @@ INTERACTIONS = {
 
 INTERACTION_IDS = tuple(fnv64(name) for name in INTERACTIONS)
 
-# Menu « Sims unique » (catégorie du pie menu, visible avec testingcheats) : les réglages.
+# Menu « Sims unique » (catégorie du pie menu, visible au Maj+clic sur son Sim) : les réglages.
 CATEGORY_NAME = 'SimsUnique:PieMenuCategory'
 CATEGORY_ID = fnv64(CATEGORY_NAME)
 CATEGORY_INTERACTIONS = (

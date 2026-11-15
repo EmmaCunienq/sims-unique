@@ -31,14 +31,6 @@ def get_household():
         return None
 
 
-def cheats_enabled():
-    """Vrai si « testingcheats on » est actif (le menu de réglages n'apparaît qu'alors)."""
-    try:
-        return bool(services.get_cheat_service().cheats_enabled)
-    except Exception:
-        return False
-
-
 def zone_is_running():
     try:
         zone = services.current_zone()

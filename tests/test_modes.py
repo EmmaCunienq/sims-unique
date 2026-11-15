@@ -103,13 +103,13 @@ class ModesTest(unittest.TestCase):
         sims4.commands.registry['unique.mode'](3, _connection=None)
         self.assertEqual(self.core.current_mode(), 3)
 
-    def test_mode_menu_needs_testingcheats(self):
-        ctx = types.SimpleNamespace(sim=Sim(self.mom))
+    def test_mode_menu_needs_shift_click(self):
+        self.w.cheats_enabled = True  # testingcheats ne suffit pas
+        ctx = types.SimpleNamespace(sim=Sim(self.mom), shift_held=False)
         self.assertFalse(self.i.SimsUniqueModeHouseholdInteraction._test(Sim(self.mom), ctx))
 
     def test_mode_menu_offers_other_modes(self):
-        self.w.cheats_enabled = True
-        ctx = types.SimpleNamespace(sim=Sim(self.mom))
+        ctx = types.SimpleNamespace(sim=Sim(self.mom), shift_held=True)
         classes = (self.i.SimsUniqueModeInvisibleInteraction, self.i.SimsUniqueModeHouseholdInteraction,
                    self.i.SimsUniqueModeHouseholdStateInteraction)
         visible = [c.get_name(target=Sim(self.mom), context=ctx) for c in classes if c._test(Sim(self.mom), ctx)]

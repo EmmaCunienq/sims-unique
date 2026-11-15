@@ -36,7 +36,7 @@ Chaque Sim joué a un **héritier**. Quand il meurt (ou quitte le foyer), on con
 | 2. Vision du foyer | Sim joué en taille normale ; les autres en petit, grisés, sans couleur d'émotion, non cliquables |
 | 3. État du foyer | Comme le mode 2, mais avec la couleur d'émotion de chaque Sim |
 
-Changer : `testingcheats on`, clic sur son Sim > Sims unique > « Affichage : … », ou `unique.mode 1|2|3`.
+Changer : **Maj+clic** sur son Sim > Sims unique > « Affichage : … », ou `unique.mode 1|2|3`.
 Le réglage est enregistré par foyer.
 
 Les modes 2 et 3 utilisent le mécanisme natif du jeu (`SimInfo.get_is_enabled_in_skewer`,
@@ -55,7 +55,7 @@ le même que pour les bébés). L'aspect « petit et grisé » demande en plus
 | Sur son propre Sim | Revenir à l'héritier par défaut (X) | Visible si l'héritier a été choisi à la main |
 
 **Réglages**, regroupés dans le menu **Sims unique** (logo plumbob couronné), visible
-uniquement quand `testingcheats on` est actif :
+uniquement au **Maj+clic** sur son Sim (avec ou sans `testingcheats`) :
 
 | Option | Effet |
 |---|---|
