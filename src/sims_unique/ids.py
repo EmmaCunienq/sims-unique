@@ -3,6 +3,8 @@
 Ce module ne doit rien importer du jeu : build.py l'utilise pour générer le .package.
 """
 
+VERSION = '1.0.0'
+
 
 def fnv64(text):
     """Hash FNV-1 64 bits utilisé par Les Sims 4, bit de poids fort forcé (convention des mods)."""

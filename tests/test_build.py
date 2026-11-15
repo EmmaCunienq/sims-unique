@@ -97,6 +97,7 @@ class BuildTest(unittest.TestCase):
         cls.build.OUT_DIR = cls.tmp
         cls.build.OUT_FILE = os.path.join(cls.tmp, 'SimsUnique.ts4script')
         cls.build.PACKAGE_FILE = os.path.join(cls.tmp, 'SimsUnique.package')
+        cls.build.UI_PACKAGE_FILE = os.path.join(cls.tmp, 'SimsUnique_UI.package')
         cls.compiled = cls.build.compile_with_py37(tempfile.mkdtemp()) is not None
         cls.build.build(allow_source=not cls.compiled)
         cls.build.build_package()
@@ -165,6 +166,29 @@ class BuildTest(unittest.TestCase):
         self.assertIn((0x545AC67A, 0x00E9D967, self.ids.CATEGORY_ID), keys)  # catégorie (SimData)
         self.assertIn((0x00B2D882, 0, self.ids.LOGO_ID), keys)        # logo
         self.assertTrue(any(k[0] == 0x220557DA and k[2] >> 56 == 0x07 for k in keys))  # textes FR
+
+    def test_release_zip(self):
+        open(self.build.UI_PACKAGE_FILE, 'wb').close()  # interface factice (pas besoin du jeu ici)
+        original = self.build.release_path
+        self.build.release_path = lambda: os.path.join(self.tmp, 'release.zip')
+        try:
+            path = self.build.release()
+        finally:
+            self.build.release_path = original
+        with zipfile.ZipFile(path) as zf:
+            names = sorted(zf.namelist())
+            readme = zf.read('LISEZMOI.txt').decode('utf-8-sig')
+        self.assertEqual(names, ['LISEZMOI.txt', 'SimsUnique/SimsUnique.package', 'SimsUnique/SimsUnique.ts4script',
+                                 'SimsUnique/SimsUnique_UI.package'])
+        self.assertIn('SIMS UNIQUE ' + self.ids.VERSION, readme)
+        self.assertNotIn('{', readme)  # tous les champs remplis
+        self.assertIn('\r\n', readme)  # fins de ligne Windows (Bloc-notes)
+
+    def test_release_requires_ui(self):
+        if os.path.exists(self.build.UI_PACKAGE_FILE):
+            os.remove(self.build.UI_PACKAGE_FILE)
+        with self.assertRaises(self.build.BuildError):
+            self.build.release()
 
     def test_mods_folder_with_non_breaking_spaces(self):
         home = tempfile.mkdtemp(prefix='sims_unique_home_')

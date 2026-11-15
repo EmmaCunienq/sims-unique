@@ -4,6 +4,7 @@ Usage :
     python build.py            # crée build/SimsUnique/SimsUnique.ts4script
     python build.py --install  # idem + copie dans Documents/Electronic Arts/<Les Sims 4>/Mods
     python build.py --no-ui    # sans le package d'interface (barre de portraits modifiée)
+    python build.py --release  # + build/SimsUnique_vX.Y.Z.zip à partager (avec LISEZMOI.txt)
 
 Les Sims 4 n'exécute que des fichiers .pyc compilés avec Python 3.7 : une archive contenant
 seulement des sources .py est ignorée par le jeu. build.py cherche Python 3.7 :
@@ -198,6 +199,32 @@ def install():
     print('Relancez le jeu pour charger la nouvelle version.')
 
 
+README_PLAYERS = os.path.join(ROOT, 'LISEZMOI.txt')
+
+
+def release_path():
+    return os.path.join(ROOT, 'build', 'SimsUnique_v{}.zip'.format(menu_resources.ids.VERSION))
+
+
+def release():
+    """Zip à partager : dossier SimsUnique/ à copier dans Mods + LISEZMOI.txt."""
+    if not os.path.exists(UI_PACKAGE_FILE):
+        raise BuildError('Interface non construite : impossible de faire une release complète.')
+    game_dir = build_ui.find_game_dir()
+    game_version = build_ui.game_version(game_dir) if game_dir else None
+    with open(README_PLAYERS, encoding='utf-8') as f:
+        readme = f.read().format(version=menu_resources.ids.VERSION, game_version=game_version or 'inconnue')
+    path = release_path()
+    if os.path.exists(path):
+        os.remove(path)
+    with zipfile.ZipFile(path, 'w', zipfile.ZIP_DEFLATED) as zf:
+        for source in (OUT_FILE, PACKAGE_FILE, UI_PACKAGE_FILE):
+            zf.write(source, 'SimsUnique/' + os.path.basename(source))
+        zf.writestr('LISEZMOI.txt', readme.replace('\n', '\r\n').encode('utf-8-sig'))  # lisible dans le Bloc-notes
+    print('Release :', path, '(jeu {})'.format(game_version or 'version inconnue'))
+    return path
+
+
 if __name__ == '__main__':
     try:
         build()
@@ -213,3 +240,9 @@ if __name__ == '__main__':
         build_ui_package()
     if '--install' in sys.argv:
         install()
+    if '--release' in sys.argv:
+        try:
+            release()
+        except BuildError as error:
+            print('ERREUR :', error)
+            sys.exit(1)

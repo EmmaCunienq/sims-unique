@@ -1,0 +1,61 @@
+SIMS UNIQUE {version} - mod pour Les Sims 4
+==========================================
+
+Dans chaque foyer, vous ne jouez qu'UN seul Sim. Les autres membres vivent leur vie
+en autonomie. Quand votre Sim meurt (ou quand vous le décidez), vous continuez avec
+son héritier : par défaut son enfant le plus âgé, sinon le Sim le plus proche de lui.
+
+
+INSTALLATION
+------------
+1. Copiez le dossier « SimsUnique » dans :
+     Documents\Electronic Arts\Les Sims 4\Mods\
+   (le dossier « Les Sims 4 » peut s'appeler « The Sims 4 » selon la langue du jeu)
+2. Dans le jeu : Options > Options de jeu > Autres, cochez
+     - « Activer le contenu personnalisé et les mods »
+     - « Mods de script autorisés »
+   puis relancez le jeu.
+
+Le dossier doit contenir :
+  SimsUnique.ts4script     le mod (script)
+  SimsUnique.package       les options de menu, le logo, les textes
+  SimsUnique_UI.package    la barre de portraits modifiée (voir ATTENTION)
+
+
+ATTENTION - VERSION DU JEU
+--------------------------
+SimsUnique_UI.package a été construit pour la version {game_version} du jeu.
+Si votre jeu a une autre version (ou après une mise à jour du jeu) et que la barre
+de portraits ou l'interface du mode Vie s'affiche mal, SUPPRIMEZ simplement
+SimsUnique_UI.package : le reste du mod fonctionne sans lui (les portraits ne
+seront juste plus rapetissés ni grisés).
+Il entre aussi en conflit avec les autres mods qui modifient l'interface du mode
+Vie (par exemple UI Cheats Extension) : gardez l'un ou l'autre.
+
+
+UTILISATION
+-----------
+Au premier chargement d'un foyer, le Sim sélectionné devient votre Sim joué.
+
+Clic sur votre Sim :
+  - Sims unique : Voir la succession
+  - Sims unique : Passer la main à ... (vous jouez alors l'héritier)
+  - Sims unique : Revenir à l'héritier par défaut (si vous en avez choisi un autre)
+Clic sur un autre Sim du foyer :
+  - Sims unique : Désigner comme héritier
+
+MAJ + clic sur votre Sim > menu « Sims unique » (réglages) :
+  - Affichage : Invisible        seul votre Sim est dans la barre de portraits
+  - Affichage : Vision du foyer  le foyer est dans la barre, en petit et grisé
+  - Affichage : État du foyer    pareil, avec la couleur de leurs émotions
+  - Désactiver pour ce foyer / Ne jouer que ce Sim
+
+Commandes (console : Ctrl+Maj+C) : unique.aide pour la liste.
+
+
+DÉSINSTALLATION
+---------------
+Supprimez le dossier Mods\SimsUnique. Vos sauvegardes ne sont pas modifiées par
+le mod (ses réglages sont dans SimsUnique_data.json, dans ce même dossier).
+
+En cas de problème, joignez le fichier Mods\SimsUnique\SimsUnique.log.

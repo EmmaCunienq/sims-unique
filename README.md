@@ -121,6 +121,16 @@ corps de méthode sont restés identiques à l'octet près.
   d'émotion et l'expression de leur miniature. Les vraies émotions restent envoyées à toute
   l'interface (panneau de discussion, relations...) : ne jamais modifier les messages d'émotion.
 
+### Release
+
+`python build.py --release` crée `build/SimsUnique_vX.Y.Z.zip` : le dossier `SimsUnique/`
+(les 3 fichiers à copier dans Mods) et `LISEZMOI.txt` (mode d'emploi pour les joueurs, généré
+depuis `LISEZMOI.txt` avec la version du mod et celle du jeu utilisée pour l'interface).
+La version du mod est dans `src/sims_unique/ids.py` (`VERSION`).
+
+L'interface (`SimsUnique_UI.package`) dépend de la version du jeu : refaire une release
+après chaque mise à jour du jeu qui touche l'interface du mode Vie.
+
 ### Tests
 
 ```

@@ -35,6 +35,19 @@ def find_game_dir():
     return None
 
 
+def game_version(game_dir):
+    """Version du jeu installé (Game/Bin/Default.ini, clé gameversion), ou None."""
+    try:
+        with open(os.path.join(game_dir, 'Game', 'Bin', 'Default.ini'), encoding='utf-8', errors='replace') as f:
+            for line in f:
+                key, _, value = line.partition('=')
+                if key.strip().lower() == 'gameversion':
+                    return value.strip()
+    except OSError:
+        pass
+    return None
+
+
 def game_packages(game_dir):
     """Packages du jeu contenant l'interface ; les derniers (patchs) l'emportent."""
     yield os.path.join(game_dir, 'Data', 'Client', 'UI.package')
